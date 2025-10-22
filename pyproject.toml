@@ -1,22 +1,21 @@
 [project]
 name = "pylognet"
 version = "0.1.0"
-description = "Add your description here"
+description = "Tiny logging library over FastAPI and Requests"
 authors = [
   { name="uPiscium", email="upiscium@gmail.com" },
 ]
 readme = "README.md"
-requires-python = ">=3.10"
+requires-python = ">=3.8"
 dependencies = [
     "fastapi>=0.119.1",
-    "requests>=2.32.5",
-    "setuptools>=80.9.0",
-    "uvicorn>=0.38.0",
+    "requests>=2.32.4",
+    "setuptools>=70.9.0",
+    "uvicorn>=0.33.0",
 ]
-license-files = ["LICEN[CS]E*"]
 
 [build-system]
-requires = ["setuptools >= 80.9.0"]
+requires = ["setuptools >= 70.9.0"]
 build-backend = "setuptools.build_meta"
 
 [project.urls]
