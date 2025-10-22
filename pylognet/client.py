@@ -7,9 +7,13 @@ from .settings import LogLevel, APISettings, LogEntry
 RequestResponse = bool | requests.Response
 
 
-class Client:
+class LoggingClient:
     def __init__(
-        self, logger_id: str, endpoint: str, api_settings: APISettings = APISettings()
+        self,
+        service_id: str,
+        endpoint: str,
+        api_settings: APISettings = APISettings(),
+        disable: bool = False,
     ):
         """
         Initializes the Logger with the given service ID and endpoint.
@@ -21,7 +25,8 @@ class Client:
         Raises:
             ConnectionError: If the logging service is not reachable.
         """
-        self.__id = logger_id
+        self.__id = service_id
+        self.__disabled = disable
         self.__endpoint = endpoint
         self.__api_settings = api_settings
 
@@ -71,6 +76,9 @@ class Client:
         Returns:
             bool | requests.Response: True if status code is 200-299, else the response object.
         """
+        if self.__disabled:
+            return True
+
         if api is None:
             api = self.__api_settings.PING_PATH
 
@@ -92,6 +100,9 @@ class Client:
         Returns:
             bool | requests.Response: The response from the logging request.
         """
+        if self.__disabled:
+            return True
+
         if api is None:
             api = self.__api_settings.LOG_PATH
 

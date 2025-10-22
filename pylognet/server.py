@@ -34,6 +34,12 @@ class LoggingService:
             response_class=JSONResponse,
         )
         self.__router.add_api_route(
+            "/services",
+            self.get_services,
+            methods=["GET"],
+            response_class=JSONResponse,
+        )
+        self.__router.add_api_route(
             "/retrieve",
             self.retrieve_logs,
             methods=["GET"],
@@ -93,6 +99,16 @@ class LoggingService:
         """
         log = self.__logger.record(entry)
         return JSONResponse(content={"log": log}, status_code=201)
+
+    async def get_services(self) -> JSONResponse:
+        """
+        Retrieves a list of available logging services.
+
+        Returns:
+            JSONResponse: A JSON response containing the list of services.
+        """
+        services = self.__logger.get_services()
+        return JSONResponse(content={"services": services}, status_code=200)
 
     async def retrieve_logs(self, id: str) -> JSONResponse:
         """

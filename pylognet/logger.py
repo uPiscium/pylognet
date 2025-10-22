@@ -56,6 +56,15 @@ class Logger:
         """
         return self.__logs.get(id, [])
 
+    def get_services(self) -> list[str]:
+        """
+        Retrieves all unique IDs that have log entries.
+
+        Returns:
+            list[str]: A list of unique IDs.
+        """
+        return list(self.__logs.keys())
+
     def get_all(self) -> dict[str, list[Log]]:
         """
         Retrieves all log entries for all IDs.
