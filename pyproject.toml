@@ -2,6 +2,9 @@
 name = "pylognet"
 version = "0.1.0"
 description = "Add your description here"
+authors = [
+  { name="uPiscium", email="upiscium@gmail.com" },
+]
 readme = "README.md"
 requires-python = ">=3.10"
 dependencies = [
@@ -10,3 +13,11 @@ dependencies = [
     "setuptools>=80.9.0",
     "uvicorn>=0.38.0",
 ]
+license-files = ["LICEN[CS]E*"]
+
+[build-system]
+requires = ["setuptools >= 80.9.0"]
+build-backend = "setuptools.build_meta"
+
+[project.urls]
+Homepage = "https://github.com/upiscium/pylognet"
