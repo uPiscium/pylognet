@@ -57,6 +57,24 @@ class LoggingService:
             methods=["GET"],
             response_class=JSONResponse,
         )
+        self.__router.add_api_route(
+            "/clear-logs",
+            self.clear_logs,
+            methods=["DELETE"],
+            response_class=JSONResponse,
+        )
+        self.__router.add_api_route(
+            "/clear-service-logs",
+            self.clear_service_logs,
+            methods=["DELETE"],
+            response_class=JSONResponse,
+        )
+        self.__router.add_api_route(
+            "/clear-log-queue",
+            self.clear_log_queue,
+            methods=["DELETE"],
+            response_class=JSONResponse,
+        )
 
     def get_app(self) -> FastAPI:
         """
@@ -147,3 +165,39 @@ class LoggingService:
         """
         log_queue = self.__logger.get_log_queue()
         return JSONResponse(content={"log_queue": log_queue}, status_code=200)
+
+    async def clear_logs(self) -> JSONResponse:
+        """
+        Clears all logs.
+
+        Returns:
+            JSONResponse: A JSON response indicating the status of the operation.
+        """
+        self.__logger.clear_logs()
+        return JSONResponse(content={"status": "logs cleared"}, status_code=200)
+
+    async def clear_service_logs(self, service_name: str) -> JSONResponse:
+        """
+        Clears logs for a specific service.
+
+        Args:
+            service_name (str): The name of the service whose logs are to be cleared.
+
+        Returns:
+            JSONResponse: A JSON response indicating the status of the operation.
+        """
+        self.__logger.clear_service_logs(service_name)
+        return JSONResponse(
+            content={"status": f"logs for service '{service_name}' cleared"},
+            status_code=200,
+        )
+
+    async def clear_log_queue(self) -> JSONResponse:
+        """
+        Clears the log queue.
+
+        Returns:
+            JSONResponse: A JSON response indicating the status of the operation.
+        """
+        self.__logger.clear_log_queue()
+        return JSONResponse(content={"status": "log queue cleared"}, status_code=200)

@@ -76,17 +76,35 @@ class Logger:
 
     def get_log_queue(self) -> list[str]:
         """
-        Retrieves all log entries from the log queue.
+        Return all log entries from the log queue without removing them.
 
         Returns:
             list[str]: A list of log entries in string format.
         """
         logs = []
-        while not self.__log_queue.empty():
-            entry = self.__log_queue.get()
-            log = Log(entry.message, entry.level)
-            logs.append(str(log))
         return logs
+
+    def clear_logs(self) -> None:
+        """
+        Clears all stored log entries.
+        """
+        self.__logs.clear()
+
+    def clear_service_logs(self, id: str) -> None:
+        """
+        Clears all log entries for a specific service ID.
+
+        Args:
+            id (str): The identifier for which to clear log entries.
+        """
+        if id in self.__logs:
+            del self.__logs[id]
+
+    def clear_log_queue(self) -> None:
+        """
+        Clears all entries from the log queue.
+        """
+        self.__log_queue.queue.clear()
 
     def export(self, folder_path: str):
         """
